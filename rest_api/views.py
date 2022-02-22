@@ -26,3 +26,16 @@ class TestAPIView(APIView):
 
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk=None):
+        """Update an object	by PUT (replacing the entire object)"""
+        # provide any logic you want for PUT request
+        return Response({'method': 'PUT'})	
+
+    def patch(self, request, pk=None):
+        """Update an object by PATCH (partially update an object by providing necessary changes)"""
+        return Response({'method': 'PATCH'})
+
+    def delete(self, request, pk=None):
+        """Delete an object"""
+        return Response({'method': 'DELETE'})
