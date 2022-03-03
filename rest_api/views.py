@@ -2,8 +2,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import filters
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings
 
 from rest_api import serializers
+from rest_api import models
+from rest_api import permissions
 
 class TestAPIView(APIView):
     """Test API VIEW"""
@@ -83,4 +89,17 @@ class TestViewSet(viewsets.ViewSet):
         """Delete an object"""
         return Response({'http_method': 'DELETE'})
 
+
+class TestModelViewSet(viewsets.ModelViewSet):
+    """Create and update test object"""
+    serializer_class = serializers.TestModelSerializer
+    queryset = models.UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',)
+
+class UserLoginApiView(ObtainAuthToken):
+    """Create user authentication tokens"""
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
