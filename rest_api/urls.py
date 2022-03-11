@@ -7,6 +7,7 @@ from rest_api import views
 router = DefaultRouter()
 router.register('test-url-viewset', views.TestViewSet, base_name='test-url-viewset')
 router.register('test-url-modelviewset', views.TestModelViewSet)
+router.register('feed', views.UserProfileFeedViewSet)
 
 urlpatterns = [
     path('test-url/', views.TestAPIView.as_view()),
